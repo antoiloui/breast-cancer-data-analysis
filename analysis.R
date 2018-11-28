@@ -63,7 +63,7 @@ Cancer <- data[Classification==2, 1:9]
 res <- princomp(Healthy)
 summary(res)
 
-# PCA with an estimated covariance matrix
+# PCA with a robust covariance matrix
 library(MASS)
 rob_healthy <- cov.rob(Healthy, method="mcd", quantile.used = floor((52 + 9 + 1)/2), cor= TRUE)
 P <- princomp(covmat=rob_healthy$cov)
