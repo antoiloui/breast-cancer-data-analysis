@@ -16,15 +16,15 @@ View(data)
 summary(data)
 
 # Graphics of the impact of the qualitative feature on quantitative features
-boxplot(data[,1] ~ Classification, main='Age')
-boxplot(data[,2] ~ Classification, main='BMI')
-boxplot(data[,3] ~ Classification, main='Glucose levels')
-boxplot(data[,4] ~ Classification, main='Insuline levels')
+boxplot(data[,1] ~ Classification, main='Age (years)')
+boxplot(data[,2] ~ Classification, main='BMI (kg/m^2)')
+boxplot(data[,3] ~ Classification, main='Glucose (mg/dL)')
+boxplot(data[,4] ~ Classification, main='Insuline (uU/mL)')
 boxplot(data[,5] ~ Classification, main='HOMA')
-boxplot(data[,6] ~ Classification, main='Leptin levels') 
-boxplot(data[,7] ~ Classification, main='Adiponectin levels')
-boxplot(data[,8] ~ Classification, main='Resistin levels')
-boxplot(data[,9] ~ Classification, main='MCP.1 levels')
+boxplot(data[,6] ~ Classification, main='Leptin (ng/mL)') 
+boxplot(data[,7] ~ Classification, main='Adiponectin (ug/mL)')
+boxplot(data[,8] ~ Classification, main='Resistin (ng/mL)')
+boxplot(data[,9] ~ Classification, main='MCP.1 (pg/dL)')
 
 
 # Matrix of scatterplots of the quantitative features
