@@ -1,5 +1,5 @@
-setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
-#setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
+#setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
+setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
 
 # Data loading
 data <- read.table("data.csv", header=TRUE, sep=',')
@@ -7,6 +7,11 @@ attach(data)
 
 # Data viewer
 View(data)
+
+
+#-----------------------------------------------------------------------------
+# Question 2
+#-----------------------------------------------------------------------------
 
 # Statistical summaries of the variables
 summary(data)
@@ -21,7 +26,6 @@ boxplot(data[,6] ~ Classification, main='Leptin (ng/mL)')
 boxplot(data[,7] ~ Classification, main='Adiponectin (ug/mL)')
 boxplot(data[,8] ~ Classification, main='Resistin (ng/mL)')
 boxplot(data[,9] ~ Classification, main='MCP.1 (pg/dL)')
-
 
 # Matrix of scatterplots of the quantitative features
 pairs(data[,1:9])
@@ -38,11 +42,12 @@ maha <- mahalanobis(data[,1:9], m, S)
 
 #Plotting standard distances (not robust)
 plot(maha, type='h')
-abline(h= qchisq(0.95, 9), col='red')  # p = 9 = number of quantitative variables
+abline(h=qchisq(0.95, 9), col='red')  # p = 9 = number of quantitative variables
+
 #Robust estimator
 library(MASS)
-robS = cov.rob(data[,1:9], quantile.used = floor((116 + 9 + 1)/2), method='mcd',cor = TRUE)
-robust_dist<- mahalanobis(data[,1:9], robS$center, robS$cov)
+robS = cov.rob(data[,1:9], quantile.used = floor((116 + 9 + 1)/2), method='mcd', cor = TRUE)
+robust_dist <- mahalanobis(data[,1:9], robS$center, robS$cov)
 
 #Plotting robust distances
 plot(robust_dist, type = "h")
@@ -52,23 +57,48 @@ abline(h=qchisq(0.975,9), col="red")
 plot(maha,robust_dist)
 
 #Robust correlation matrix
-corrplot(robust_est$cor)
+corrplot(robust_dist$cor)
 
+
+#-----------------------------------------------------------------------------
+# Question 3
+#-----------------------------------------------------------------------------
 
 # Definition of new data sets according to the qualitative variable
 Healthy <- data[Classification==1, 1:9]
 Cancer <- data[Classification==2, 1:9]
 
-# PCA by default
-res <- princomp(Healthy)
-summary(res)
-
 # PCA with an estimated covariance matrix
 library(MASS)
-rob_healthy <- cov.rob(Healthy, method="mcd", quantile.used = 30)
-P <- princomp(covmat=rob_healthy$cov)
-summary(P)
+robS_healthy <- cov.rob(Healthy, quantile.used = floor((52 + 9 + 1)/2), method='mcd', cor = TRUE)
+robS_cancer <- cov.rob(Cancer, quantile.used = floor((64 + 9 + 1)/2), method='mcd', cor = TRUE)
+PC_healthy <- princomp(covmat=robS_healthy$cov)
+PC_cancer <- princomp(covmat=robS_cancer$cov)
+summary(PC_healthy)
+summary(PC_cancer)
+
+# Loadings
+PC_healthy$loadings
+PC_cancer$loadings
+
+# Bar plots to represent loadings of Healthy
+par(mfrow=c(9,1))
+for(i in 1:9)
+  barplot(PC_healthy$loadings[,i], main=paste("Component", i))
+
+# Bar plots to represent loadings of Cancer
+par(mfrow=c(9,1))
+for(i in 1:9)
+  barplot(PC_cancer$loadings[,i], main=paste("Component", i))
+
+# Scree plots
+par(mfrow=c(2,2))
+plot(PC_healthy, type='l', main='')
+plot(PC_cancer, type='l', main='')
 
 
 
+
+
+# Detach the data
 detach(data)
