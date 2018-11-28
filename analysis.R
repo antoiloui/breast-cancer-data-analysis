@@ -5,10 +5,6 @@ setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-c
 data <- read.table("data.csv", header=TRUE, sep=',')
 attach(data)
 
-# Definition of new data sets
-Healthy <- data[Classification==1, 1:9]
-Cancer <- data[Classification==2, 1:9]
-
 # Data viewer
 View(data)
 
@@ -33,5 +29,19 @@ pairs(data[,1:9])
 c <- cor(data)
 library(corrplot)
 corrplot(c)
+
+# Definition of new data sets according to the qualitative variable
+Healthy <- data[Classification==1, 1:9]
+Cancer <- data[Classification==2, 1:9]
+
+# PCA by default
+res <- princomp(Healthy)
+summary(res)
+
+# PCA with an estimated covariance matrix
+library(MASS)
+rob_healthy <- cov.rob(Healthy, method="mcd", quantile.used = 30)
+P <- princomp(covmat=rob_healthy$cov)
+summary(P)
 
 detach(data)
