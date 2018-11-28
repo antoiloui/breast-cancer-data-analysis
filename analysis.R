@@ -65,7 +65,7 @@ summary(res)
 
 # PCA with an estimated covariance matrix
 library(MASS)
-rob_healthy <- cov.rob(Healthy, method="mcd", quantile.used = 30)
+rob_healthy <- cov.rob(Healthy, method="mcd", quantile.used = floor((52 + 9 + 1)/2), cor= TRUE)
 P <- princomp(covmat=rob_healthy$cov)
 summary(P)
 
