@@ -50,11 +50,13 @@ robS = cov.rob(data[,1:9], quantile.used = floor((116 + 9 + 1)/2), method='mcd',
 robust_dist <- mahalanobis(data[,1:9], robS$center, robS$cov)
 
 #Plotting robust distances
-plot(robust_dist, type = "h")
-abline(h=qchisq(0.975,9), col="red")
+plot(log(robust), type = "h")
+abline(h=log(qchisq(0.975,9)), col="red")
 
 #DDplot
-plot(maha,robust_dist)
+plot(maha,robust)
+abline(h=qchisq(0.975,9), col="red")
+abline(v=qchisq(0.975,9), col="red")
 
 #Robust correlation matrix
 corrplot(robust_dist$cor)
@@ -95,7 +97,6 @@ for(i in 1:9)
 par(mfrow=c(2,2))
 plot(PC_healthy, type='l', main='')
 plot(PC_cancer, type='l', main='')
-
 
 
 
