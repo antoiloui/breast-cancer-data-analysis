@@ -59,7 +59,7 @@ abline(h=qchisq(0.975,9), col="red")
 abline(v=qchisq(0.975,9), col="red")
 
 #Robust correlation matrix
-corrplot(robust$cor)
+corrplot(robS$cor)
 
 
 #-----------------------------------------------------------------------------
@@ -76,7 +76,7 @@ summary(PCA)
 PCA$loadings
 
 # Bar plots to represent loadings of Healthy
-par(mfrow=c(9,1))
+par(mfrow=c(3,3))
 
 for(i in 1:9)
   barplot(PCA$loadings[,i], main=paste("Component", i))
