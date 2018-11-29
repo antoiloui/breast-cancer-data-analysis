@@ -66,38 +66,24 @@ corrplot(robust$cor)
 # Question 3
 #-----------------------------------------------------------------------------
 
-# Definition of new data sets according to the qualitative variable
-Healthy <- data[Classification==1, 1:9]
-Cancer <- data[Classification==2, 1:9]
-
 # PCA with an estimated covariance matrix
 library(MASS)
-robS_healthy <- cov.rob(Healthy, quantile.used = floor((52 + 9 + 1)/2), method='mcd', cor = TRUE)
-robS_cancer <- cov.rob(Cancer, quantile.used = floor((64 + 9 + 1)/2), method='mcd', cor = TRUE)
-PC_healthy <- princomp(covmat=robS_healthy$cov)
-PC_cancer <- princomp(covmat=robS_cancer$cov)
-summary(PC_healthy)
-summary(PC_cancer)
+robS_pca = cov.rob(data, quantile.used = floor((116 + 9 + 1)/2), method='mcd', cor = TRUE)
+PCA <- princomp(covmat=robS_pca$cov)
+summary(PCA)
 
 # Loadings
-PC_healthy$loadings
-PC_cancer$loadings
+PCA$loadings
 
 # Bar plots to represent loadings of Healthy
 par(mfrow=c(9,1))
-for(i in 1:9){
-  barplot(PC_healthy$loadings[,i], main=paste("Component", i))
-}
 
-# Bar plots to represent loadings of Cancer
-par(mfrow=c(9,1))
 for(i in 1:9)
-  barplot(PC_cancer$loadings[,i], main=paste("Component", i))
+  barplot(PCA$loadings[,i], main=paste("Component", i))
 
 # Scree plots
-par(mfrow=c(2,2))
-plot(PC_healthy, type='l', main='')
-plot(PC_cancer, type='l', main='')
+plot(PCA, type='l', main='')
+
 
 
 
