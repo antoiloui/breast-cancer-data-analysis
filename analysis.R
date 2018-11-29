@@ -35,6 +35,9 @@ c <- cor(data)
 library(corrplot)
 corrplot(c)
 
+
+
+
 # Mahalanobis distances and multivariate 
 m <- apply(data[,1:9], 2, mean)
 S <- cov(data[,1:9])
@@ -67,9 +70,7 @@ corrplot(robS$cor)
 #-----------------------------------------------------------------------------
 
 # PCA with an estimated covariance matrix
-library(MASS)
-robS_pca = cov.rob(data, quantile.used = floor((116 + 9 + 1)/2), method='mcd', cor = TRUE)
-PCA <- princomp(covmat=robS_pca$cov)
+PCA <- princomp(covmat=robS$cov)
 summary(PCA)
 
 # Loadings
