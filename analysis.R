@@ -1,5 +1,5 @@
-#setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
-setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
+setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
+#setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
 
 # Data loading
 data <- read.table("data.csv", header=TRUE, sep=',')
@@ -47,19 +47,19 @@ abline(h=qchisq(0.95, 9), col='red')  # p = 9 = number of quantitative variables
 #Robust estimator
 library(MASS)
 robS = cov.rob(data[,1:9], quantile.used = floor((116 + 9 + 1)/2), method='mcd', cor = TRUE)
-robust_dist <- mahalanobis(data[,1:9], robS$center, robS$cov)
+robust <- mahalanobis(data[,1:9], robS$center, robS$cov)
 
-#Plotting robust distances
+#Plotting robust distances (log because of scale)
 plot(log(robust), type = "h")
 abline(h=log(qchisq(0.975,9)), col="red")
 
-#DDplot
-plot(maha,robust)
+#DDplot (log because of scale)
+plot(maha,log(robust))
 abline(h=qchisq(0.975,9), col="red")
 abline(v=qchisq(0.975,9), col="red")
 
 #Robust correlation matrix
-corrplot(robust_dist$cor)
+corrplot(robust$cor)
 
 
 #-----------------------------------------------------------------------------
@@ -85,8 +85,9 @@ PC_cancer$loadings
 
 # Bar plots to represent loadings of Healthy
 par(mfrow=c(9,1))
-for(i in 1:9)
+for(i in 1:9){
   barplot(PC_healthy$loadings[,i], main=paste("Component", i))
+}
 
 # Bar plots to represent loadings of Cancer
 par(mfrow=c(9,1))
@@ -97,7 +98,6 @@ for(i in 1:9)
 par(mfrow=c(2,2))
 plot(PC_healthy, type='l', main='')
 plot(PC_cancer, type='l', main='')
-
 
 
 
