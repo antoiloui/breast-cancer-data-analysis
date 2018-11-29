@@ -1,5 +1,5 @@
-setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
-#setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
+#[setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
+setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
 
 # Data loading
 data <- read.table("data.csv", header=TRUE, sep=',')
@@ -35,9 +35,6 @@ c <- cor(data)
 library(corrplot)
 corrplot(c)
 
-
-
-
 # Mahalanobis distances and multivariate 
 m <- apply(data[,1:9], 2, mean)
 S <- cov(data[,1:9])
@@ -62,7 +59,7 @@ abline(h=qchisq(0.975,9), col="red")
 abline(v=qchisq(0.975,9), col="red")
 
 #Robust correlation matrix
-corrplot(robust$cor)
+corrplot(robS$cor)
 
 
 #-----------------------------------------------------------------------------
@@ -77,8 +74,6 @@ summary(PCA)
 PCA$loadings
 
 # Bar plots to represent loadings of Healthy
-par(mfrow=c(9,1))
-
 for(i in 1:9)
   barplot(PCA$loadings[,i], main=paste("Component", i))
 
