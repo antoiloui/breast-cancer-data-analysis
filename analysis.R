@@ -73,10 +73,10 @@ summary(PCA)
 # Loadings
 PCA$loadings
 
-# Bar plots to represent loadings of Healthy
+# Bar plots to represent loadings
+par(mfrow=c(3,3))
 for(i in 1:9)
   barplot(PCA$loadings[,i], main=paste("Component", i))
-
 # Scree plots
 plot(PCA, type='l', main='')
 
