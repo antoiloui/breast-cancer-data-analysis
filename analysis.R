@@ -1,5 +1,5 @@
-#setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
-setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
+setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
+#setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
 
 # Data loading
 data <- read.table("data.csv", header=TRUE, sep=',')
@@ -52,12 +52,12 @@ library(MASS)
 robS = cov.rob(data[,1:9], quantile.used = floor((116 + 9 + 1)/2), method='mcd', cor = TRUE)
 robust <- mahalanobis(data[,1:9], robS$center, robS$cov)
 
-#Plotting robust distances
+#Plotting robust distances (log because of scale)
 plot(log(robust), type = "h")
 abline(h=log(qchisq(0.975,9)), col="red")
 
-#DDplot
-plot(maha,robust)
+#DDplot (log because of scale)
+plot(maha,log(robust))
 abline(h=qchisq(0.975,9), col="red")
 abline(v=qchisq(0.975,9), col="red")
 
@@ -78,12 +78,12 @@ PCA$loadings
 
 # Bar plots to represent loadings of Healthy
 par(mfrow=c(9,1))
+
 for(i in 1:9)
   barplot(PCA$loadings[,i], main=paste("Component", i))
 
 # Scree plots
 plot(PCA, type='l', main='')
-
 
 
 
