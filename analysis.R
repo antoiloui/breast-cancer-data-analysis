@@ -31,7 +31,7 @@ boxplot(data[,9] ~ Classification, main='MCP.1 (pg/dL)')
 pairs(data[,1:9])
 
 # Graphics of the correlation matrix
-c <- cor(data)
+c <- cor(data[,1:9])
 library(corrplot)
 corrplot(c)
 
@@ -77,6 +77,7 @@ PCA$loadings
 par(mfrow=c(3,3))
 for(i in 1:9)
   barplot(PCA$loadings[,i], main=paste("Component", i))
+par(mfrow=c(1,1))
 # Scree plots
 plot(PCA, type='l', main='')
 
