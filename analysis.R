@@ -72,21 +72,29 @@ corrplot(robS$cor)
 #-----------------------------------------------------------------------------
 
 # PCA with an estimated covariance matrix
-PCA <- princomp(covmat=robS$cor)
+PCA <- princomp(data[-10], cor = TRUE)
 summary(PCA)
-{
+
 # Loadings
 PCA$loadings
 
 # Bar plots to represent loadings
 par(mfrow=c(3,3))
 for(i in 1:9)
-  barplot(PCA$loadings[,i], main=paste("Component", i))
+  barplot(PCA$loadings[,i], main=paste("Component", i),las=2)
 par(mfrow=c(1,1))
+
 # Scree plots
 plot(PCA, type='l', main='')
 
-}
+# Matrix containing the scores for the 4 variables
+corrplot(cor(data[-10], PCA$scores))
+
+# Correlation circle
+library(ade4)
+rescor<-cor(data[-10], PCA$scores)[,1:2]
+s.corcircle(rescor)
+
 # Detach the data
 detach(data)
 
