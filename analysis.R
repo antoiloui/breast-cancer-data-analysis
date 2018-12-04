@@ -17,6 +17,7 @@ View(data)
 summary(data)
 
 # Graphics of the impact of the qualitative feature on quantitative features
+par(mfrow=c(5,2))
 boxplot(data[,1] ~ Classification, main='Age (years)')
 boxplot(data[,2] ~ Classification, main='BMI (kg/m^2)')
 boxplot(data[,3] ~ Classification, main='Glucose (mg/dL)')
@@ -26,6 +27,7 @@ boxplot(data[,6] ~ Classification, main='Leptin (ng/mL)')
 boxplot(data[,7] ~ Classification, main='Adiponectin (ug/mL)')
 boxplot(data[,8] ~ Classification, main='Resistin (ng/mL)')
 boxplot(data[,9] ~ Classification, main='MCP.1 (pg/dL)')
+par(mfrow=c(1,1))
 
 # Matrix of scatterplots of the quantitative features
 pairs(data[,1:9])
@@ -80,8 +82,6 @@ for(i in 1:9)
 par(mfrow=c(1,1))
 # Scree plots
 plot(PCA, type='l', main='')
-
-
 
 
 # Detach the data
