@@ -17,7 +17,7 @@ View(data)
 summary(data)
 
 # Graphics of the impact of the qualitative feature on quantitative features
-par(mfrow=c(5,2))
+par(mfrow=c(3,3))
 boxplot(data[,1] ~ Classification, main='Age (years)')
 boxplot(data[,2] ~ Classification, main='BMI (kg/m^2)')
 boxplot(data[,3] ~ Classification, main='Glucose (mg/dL)')
