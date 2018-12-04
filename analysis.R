@@ -30,7 +30,10 @@ boxplot(data[,9] ~ Classification, main='MCP.1 (pg/dL)')
 par(mfrow=c(1,1))
 
 # Matrix of scatterplots of the quantitative features
-pairs(data[,1:9])
+my_cols <- c("#00AFBB", "#FC4E07")  
+
+pairs(data[,1:9],pch = 16,  cex = 0.9,
+      col = my_cols[data$Classification])
 
 # Graphics of the correlation matrix
 c <- cor(data[,1:9])
@@ -86,3 +89,4 @@ plot(PCA, type='l', main='')
 
 # Detach the data
 detach(data)
+
