@@ -72,9 +72,9 @@ corrplot(robS$cor)
 #-----------------------------------------------------------------------------
 
 # PCA with an estimated covariance matrix
-PCA <- princomp(covmat=robS$cov)
+PCA <- princomp(covmat=robS$cor)
 summary(PCA)
-
+{
 # Loadings
 PCA$loadings
 
@@ -86,7 +86,7 @@ par(mfrow=c(1,1))
 # Scree plots
 plot(PCA, type='l', main='')
 
-
+}
 # Detach the data
 detach(data)
 
