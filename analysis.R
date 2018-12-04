@@ -61,7 +61,7 @@ abline(h=qchisq(0.975,9), col="red")
 abline(v=qchisq(0.975,9), col="red")
 
 #Robust correlation matrix
-corrplot(robS$cor)
+#corrplot(robS$cor)
 
 
 #-----------------------------------------------------------------------------
@@ -69,7 +69,7 @@ corrplot(robS$cor)
 #-----------------------------------------------------------------------------
 
 # PCA with an estimated covariance matrix
-PCA <- princomp(covmat=robS$cov, cor)
+PCA <- princomp(covmat=robS$cov, cor=TRUE)
 summary(PCA)
 
 # Loadings
