@@ -1,5 +1,5 @@
-setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
-#setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
+#[setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
+setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
 
 # Data loading
 data <- read.table("data.csv", header=TRUE, sep=',')
@@ -31,9 +31,8 @@ par(mfrow=c(1,1))
 
 # Matrix of scatterplots of the quantitative features
 my_cols <- c("#00AFBB", "#FC4E07")  
-
 pairs(data[,1:9],pch = 16,  cex = 0.9,
-      col = my_cols[data$Classification])
+         -      col = my_cols[data$Classification])
 
 # Graphics of the correlation matrix
 c <- cor(data[,1:9])
@@ -92,9 +91,10 @@ corrplot(cor(data[-10], PCA$scores))
 
 # Correlation circle
 library(ade4)
-rescor<-cor(data[-10], PCA$scores)[,1:2]
-s.corcircle(rescor)
+par(mfrow=c(2,2))
+sub <- c("Component 1",  "Component 2", "Component 3",  "Component 4")
+for(i in 1:4)
+   s.corcircle(cor(data[-10], PCA$scores)[,i:(i+1)],sub = sub[i])
 
 # Detach the data
 detach(data)
-
