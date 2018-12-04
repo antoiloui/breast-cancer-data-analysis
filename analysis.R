@@ -1,5 +1,5 @@
-setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
-#setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
+#[setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
+setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
 
 # Data loading
 data <- read.table("data.csv", header=TRUE, sep=',')
@@ -17,7 +17,7 @@ View(data)
 summary(data)
 
 # Graphics of the impact of the qualitative feature on quantitative features
-par(mfrow=c(5,2))
+par(mfrow=c(3,3))
 boxplot(data[,1] ~ Classification, main='Age (years)')
 boxplot(data[,2] ~ Classification, main='BMI (kg/m^2)')
 boxplot(data[,3] ~ Classification, main='Glucose (mg/dL)')
@@ -30,10 +30,7 @@ boxplot(data[,9] ~ Classification, main='MCP.1 (pg/dL)')
 par(mfrow=c(1,1))
 
 # Matrix of scatterplots of the quantitative features
-my_cols <- c("#00AFBB", "#FC4E07")  
-
-pairs(data[,1:9],pch = 16,  cex = 0.9,
-      col = my_cols[data$Classification])
+pairs(data[,1:9])
 
 # Graphics of the correlation matrix
 c <- cor(data[,1:9])
@@ -72,9 +69,9 @@ corrplot(robS$cor)
 #-----------------------------------------------------------------------------
 
 # PCA with an estimated covariance matrix
-PCA <- princomp(covmat=robS$cor)
+PCA <- princomp(covmat=robS$cov, cor)
 summary(PCA)
-{
+
 # Loadings
 PCA$loadings
 
@@ -86,7 +83,6 @@ par(mfrow=c(1,1))
 # Scree plots
 plot(PCA, type='l', main='')
 
-}
+
 # Detach the data
 detach(data)
-
