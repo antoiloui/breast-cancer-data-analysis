@@ -1,5 +1,5 @@
-#[setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
-setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
+setwd("~/Documents/Master1_DataScience/1er QUADRI/High_Dimensional_Data_Analysis/Breast-cancer-data-analysis")
+#setwd("~/Documents/INGE/MASTER/1ère\ MASTER/1er\ QUADRI/HDDA/Projects/Breast-cancer-data-analysis/")
 
 # Data loading
 data <- read.table("data.csv", header=TRUE, sep=',')
@@ -31,8 +31,7 @@ par(mfrow=c(1,1))
 
 # Matrix of scatterplots of the quantitative features
 my_cols <- c("#00AFBB", "#FC4E07")  
-pairs(data[,1:9],pch = 16,  cex = 0.9,
-         -      col = my_cols[data$Classification])
+pairs(data[,1:9], pch = 16,  cex = 0.9,col = my_cols[data$Classification])
 
 # Graphics of the correlation matrix
 c <- cor(data[,1:9])
@@ -58,9 +57,10 @@ plot(log(robust), type = "h")
 abline(h=log(qchisq(0.975,9)), col="red")
 
 #DDplot (log because of scale)
+par(mfrow=c(1,1))
 plot(maha,log(robust))
-abline(h=qchisq(0.975,9), col="red")
 abline(v=qchisq(0.975,9), col="red")
+abline(h=log(qchisq(0.975,9)), col="red")
 
 #Robust correlation matrix
 #corrplot(robS$cor)
